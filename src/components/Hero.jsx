@@ -1,4 +1,4 @@
-export default function Hero({ subtitle = 'React Jobs', title = 'Find your next job' }) {
+export default function Hero({ subtitle = 'Find your best job out there', title = 'Daily Jobs' }) {
    return (
       <>
          <section className='bg-indigo-700 py-20 mb-4'>

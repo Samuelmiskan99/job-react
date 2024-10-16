@@ -2,6 +2,7 @@ import Hero from './components/Hero';
 import HomeCard from './components/HomeCard';
 import JobListings from './components/JobListings';
 import Navbar from './components/Navbar';
+import ViewAllJobs from './components/ViewAllJobs';
 
 function App() {
    return (
@@ -15,6 +16,8 @@ function App() {
             <HomeCard />
             {/* Browse Jobs Section */}
             <JobListings />
+            {/* Footer  Section */}
+            <ViewAllJobs />
          </div>
       </>
    );
