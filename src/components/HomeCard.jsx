@@ -1,5 +1,5 @@
 import Card from './Card';
-
+import { Link } from 'react-router-dom';
 export default function HomeCard() {
    return (
       <>
@@ -10,9 +10,11 @@ export default function HomeCard() {
                   <p className='mt-2 text-gray-600'>
                      Browse our React jobs and start your career today
                   </p>
-                  <a href='' className='inline-block mt-4 bg-black text-white py-2 px-4 rounded'>
+                  <Link
+                     to='/jobs'
+                     className='inline-block mt-4 bg-black text-white py-2 px-4 rounded'>
                      Browse Jobs
-                  </a>
+                  </Link>
                </div>
             </Card>
 
@@ -22,11 +24,11 @@ export default function HomeCard() {
                   <p className='text-gray-600'>
                      List your job to find the perfect developer for the role
                   </p>
-                  <a
-                     href=''
+                  <Link
+                     to='/add-job'
                      className='inline-block mt-4 bg-blue-500 text-white py-2 px-4 rounded shadow'>
                      Add Job
-                  </a>
+                  </Link>
                </div>
             </Card>
          </section>

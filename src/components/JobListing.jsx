@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { CiLocationOn } from 'react-icons/ci';
 
 const JobListing = ({ job }) => {
    const { type, title, description, salary, location } = job;
@@ -26,15 +28,17 @@ const JobListing = ({ job }) => {
                {showFullDesc ? 'Read Less' : 'Read More'}
             </button>
             <span className='block text-blue-600 font-semibold'>{salary}</span>
-            <div className='flex items-center mt-2 '>
-               <span className='text-red-500 mr-2'>📍</span>
+            <div className='flex items-center mt-2  '>
+               <span className='text-red-500 mr-2'>
+                  <CiLocationOn />
+               </span>
                <span className='text-gray-500'>{location}</span>
             </div>
-            <a
-               href={`/job/${job.id}`}
+            <Link
+               to={`/job/${job.id}`}
                className='inline-block mt-4 bg-blue-500 text-white py-2 px-4 rounded'>
                Read More
-            </a>
+            </Link>
          </div>
       </div>
    );

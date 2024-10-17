@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function Hero({ subtitle = 'Find your best job out there', title = 'Daily Jobs' }) {
    return (
       <>
@@ -14,3 +16,8 @@ export default function Hero({ subtitle = 'Find your best job out there', title 
       </>
    );
 }
+
+Hero.propTypes = {
+   subtitle: PropTypes.string,
+   title: PropTypes.string,
+};
