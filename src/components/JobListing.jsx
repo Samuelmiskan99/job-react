@@ -35,7 +35,7 @@ const JobListing = ({ job }) => {
                <span className='text-gray-500'>{location}</span>
             </div>
             <Link
-               to={`/job/${job.id}`}
+               to={`/jobs/${job.id}`}
                className='inline-block mt-4 bg-blue-500 text-white py-2 px-4 rounded'>
                Read More
             </Link>
