@@ -95,4 +95,5 @@ const jobLoader = async ({ params }) => {
    const { data } = await axios.get(`/api/jobs/${params.id}`);
    return data;
 };
+
 export { JobPage as default, jobLoader };

@@ -1,6 +1,35 @@
-import React from 'react';
+import { useState } from 'react';
 
 const AddJobPage = () => {
+   const [title, setTitle] = useState('');
+   const [type, setType] = useState('');
+   const [location, setLocation] = useState('');
+   const [description, setDescription] = useState('');
+   const [salary, setSalary] = useState('');
+   const [companyName, setCompanyName] = useState('');
+   const [companyDescription, setCompanyDescription] = useState('');
+   const [contactEmail, setContactEmail] = useState('');
+   const [contactPhone, setContactPhone] = useState('');
+
+   const submitForm = (e) => {
+      e.preventDefault();
+
+      const newJob = {
+         title,
+         type,
+         location,
+         description,
+         salary,
+         company: {
+            name: companyName,
+            description: companyDescription,
+            contactEmail,
+            contactPhone,
+         },
+      };
+
+      console.log(newJob);
+   };
    return (
       <section className='bg-gradient-to-br from-indigo-50 to-indigo-100 py-12 min-h-screen'>
          <div className='container mx-auto px-4'>
@@ -9,7 +38,7 @@ const AddJobPage = () => {
                   Post a New Job
                </h2>
 
-               <form className='space-y-8'>
+               <form className='space-y-8' onSubmit={submitForm}>
                   {/* Job Title */}
                   <div>
                      <label className='block text-indigo-900 font-semibold mb-1' htmlFor='title'>
@@ -20,6 +49,8 @@ const AddJobPage = () => {
                         id='title'
                         name='title'
                         placeholder='Enter job title'
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                         className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition duration-300 ease-in-out'
                      />
                   </div>
@@ -32,6 +63,8 @@ const AddJobPage = () => {
                      <select
                         id='type'
                         name='type'
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
                         className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition duration-300 ease-in-out'>
                         <option value='Full-Time'>Full-Time</option>
                         <option value='Part-Time'>Part-Time</option>
@@ -47,6 +80,8 @@ const AddJobPage = () => {
                         Job Description
                      </label>
                      <textarea
+                        onChange={(e) => setDescription(e.target.value)}
+                        value={description}
                         id='description'
                         name='description'
                         placeholder='Enter job description'
@@ -60,6 +95,8 @@ const AddJobPage = () => {
                         Location
                      </label>
                      <input
+                        onChange={(e) => setLocation(e.target.value)}
+                        value={location}
                         type='text'
                         id='location'
                         name='location'
@@ -74,6 +111,8 @@ const AddJobPage = () => {
                         Salary
                      </label>
                      <input
+                        onChange={(e) => setSalary(e.target.value)}
+                        value={salary}
                         type='text'
                         id='salary'
                         name='salary'
@@ -90,6 +129,8 @@ const AddJobPage = () => {
                         Company Name
                      </label>
                      <input
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        value={companyName}
                         type='text'
                         id='companyName'
                         name='companyName'
@@ -106,6 +147,8 @@ const AddJobPage = () => {
                         Company Description
                      </label>
                      <textarea
+                        onChange={(e) => setCompanyDescription(e.target.value)}
+                        value={companyDescription}
                         id='companyDescription'
                         name='companyDescription'
                         placeholder='Enter company description'
@@ -121,8 +164,11 @@ const AddJobPage = () => {
                         Contact Email
                      </label>
                      <input
+                        onChange={(e) => setContactEmail(e.target.value)}
+                        value={contactEmail}
                         type='email'
                         id='contactEmail'
+                        required
                         name='contactEmail'
                         placeholder='Enter contact email'
                         className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition duration-300 ease-in-out'
@@ -137,6 +183,8 @@ const AddJobPage = () => {
                         Contact Phone
                      </label>
                      <input
+                        onChange={(e) => setContactPhone(e.target.value)}
+                        value={contactPhone}
                         type='tel'
                         id='contactPhone'
                         name='contactPhone'
