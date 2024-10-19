@@ -10,6 +10,7 @@ import JobsPage from './components/pages/JobsPage';
 import NotFound from './components/pages/NotFound';
 import JobPage, { jobLoader } from './components/pages/JobPage';
 import AddJobPage from './components/pages/AddJobPage';
+import EditJobPage from './components/pages/EditJobPage';
 import axios from 'axios';
 
 function App() {
@@ -46,6 +47,29 @@ function App() {
       }
    };
 
+   const updateJob = async (job) => {
+      try {
+         // Ensure job.id exists and is passed in the URL
+         if (!job.id) {
+            throw new Error('Job ID is missing');
+         }
+         const res = await axios.put(`/api/jobs/${job.id}`, job, {
+            headers: {
+               'Content-Type': 'application/json',
+            },
+         });
+         // Check if the response status code is within the 2xx range
+         if (res.status !== 200 && res.status !== 201) {
+            throw new Error('Failed to update the job');
+         }
+         // Return the updated job data
+         return res.data;
+      } catch (error) {
+         console.error('Error updating the job:', error);
+         throw error; // Rethrow the error so it can be handled by the caller
+      }
+   };
+
    const router = createBrowserRouter(
       createRoutesFromElements(
          <Route path='/' element={<MainLayout />}>
@@ -55,6 +79,11 @@ function App() {
             <Route
                path='/jobs/:id'
                element={<JobPage deleteJob={deleteJob} />}
+               loader={jobLoader}
+            />
+            <Route
+               path='/edit-job/:id'
+               element={<EditJobPage updateJobSubmit={updateJob} />}
                loader={jobLoader}
             />
             <Route path='*' element={<NotFound />} />

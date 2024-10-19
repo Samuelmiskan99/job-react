@@ -1,5 +1,5 @@
+import { useParams, useLoaderData, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { toast, Slide } from 'react-toastify';
 
 const toastStyle = {
@@ -14,24 +14,27 @@ const toastStyle = {
    transition: Slide,
 };
 
-const AddJobPage = ({ addJobSubmit }) => {
-   const [title, setTitle] = useState('');
-   const [type, setType] = useState('');
-   const [location, setLocation] = useState('');
-   const [description, setDescription] = useState('');
-   const [salary, setSalary] = useState('');
-   const [companyName, setCompanyName] = useState('');
-   const [companyDescription, setCompanyDescription] = useState('');
-   const [contactEmail, setContactEmail] = useState('');
-   const [contactPhone, setContactPhone] = useState('');
+const EditJobPage = ({ updateJobSubmit }) => {
+   const job = useLoaderData();
+
+   const [title, setTitle] = useState(job.title);
+   const [type, setType] = useState(job.type);
+   const [location, setLocation] = useState(job.location);
+   const [description, setDescription] = useState(job.description);
+   const [salary, setSalary] = useState(job.salary);
+   const [companyName, setCompanyName] = useState(job.company.name);
+   const [companyDescription, setCompanyDescription] = useState(job.company.description);
+   const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
+   const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
 
    const navigate = useNavigate();
+   const { id } = useParams();
 
    const submitForm = (e) => {
       e.preventDefault();
 
-      const newJob = {
-         id: Date.now(),
+      const updatedJob = {
+         id,
          title,
          type,
          location,
@@ -45,21 +48,21 @@ const AddJobPage = ({ addJobSubmit }) => {
          },
       };
 
-      addJobSubmit(newJob);
-      toast.success('Job added successfully', toastStyle);
-      return navigate('/jobs');
+      updateJobSubmit(updatedJob);
+      toast.success(' Job updated successfully', toastStyle);
+      return navigate(`/jobs/${id}`);
    };
 
    return (
       <section className='bg-gradient-to-br from-indigo-50 to-indigo-100 py-12 min-h-screen'>
-         <div className='container mx-auto px-4'>
-            <div className='max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-10'>
+         <div className='container mx-auto'>
+            <div className='bg-white p-10 rounded-xl shadow-2xl max-w-4xl mx-auto'>
                <h2 className='text-3xl font-extrabold text-indigo-700 mb-8 text-center'>
-                  Post a New Job
+                  Update Job
                </h2>
 
                <form className='space-y-8' onSubmit={submitForm}>
-                  {/* Two-Column Layout */}
+                  {/* Two Columns Layout */}
                   <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                      {/* Job Title */}
                      <div>
@@ -88,14 +91,13 @@ const AddJobPage = ({ addJobSubmit }) => {
                            value={type}
                            onChange={(e) => setType(e.target.value)}
                            className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition duration-300 ease-in-out'>
-                           <option value=''>Select Job Type</option>
                            <option value='Full-Time'>Full-Time</option>
                            <option value='Part-Time'>Part-Time</option>
                            <option value='Contract'>Contract</option>
                         </select>
                      </div>
 
-                     {/* Job Location */}
+                     {/* Location */}
                      <div>
                         <label
                            className='block text-indigo-900 font-semibold mb-1'
@@ -132,7 +134,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                      </div>
                   </div>
 
-                  {/* Full-Width Textareas */}
+                  {/* Full-Width Fields */}
                   <div className='grid grid-cols-1 gap-6'>
                      {/* Job Description */}
                      <div>
@@ -148,7 +150,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                            name='description'
                            placeholder='Enter job description'
                            className='w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-transparent transition duration-300 ease-in-out'
-                           rows='4'></textarea>
+                           rows='5'></textarea>
                      </div>
 
                      {/* Company Name */}
@@ -187,7 +189,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                      </div>
                   </div>
 
-                  {/* Two-Column Layout for Contact Info */}
+                  {/* Two Columns Layout for Contact Info */}
                   <div className='grid grid-cols-1 md:grid-cols-2 gap-6'>
                      {/* Contact Email */}
                      <div>
@@ -232,7 +234,7 @@ const AddJobPage = ({ addJobSubmit }) => {
                      <button
                         type='submit'
                         className='bg-gradient-to-r from-indigo-500 to-indigo-700 hover:from-indigo-600 hover:to-indigo-800 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-500'>
-                        Add Job
+                        Update Job
                      </button>
                   </div>
                </form>
@@ -242,4 +244,4 @@ const AddJobPage = ({ addJobSubmit }) => {
    );
 };
 
-export default AddJobPage;
+export default EditJobPage;
