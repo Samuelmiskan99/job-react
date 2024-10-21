@@ -11,7 +11,10 @@ import NotFound from './components/pages/NotFound';
 import JobPage, { jobLoader } from './components/pages/JobPage';
 import AddJobPage from './components/pages/AddJobPage';
 import EditJobPage from './components/pages/EditJobPage';
+import LoginPage from './components/pages/LoginPage';
+import SignUpPage from './components/pages/SignUpPage';
 import axios from 'axios';
+import ProtectedRoutes from './protectroutes/ProtectedRoutes.jsx';
 
 function App() {
    const addJob = async (newJob) => {
@@ -32,6 +35,7 @@ function App() {
          throw error; // rethrow the error so it can be handled by the caller
       }
    };
+
    const deleteJob = async (id) => {
       try {
          const res = await axios.delete(`/api/jobs/${id}`);
@@ -76,10 +80,20 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path='/jobs' element={<JobsPage />} />
             <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/signup' element={<SignUpPage />} />
             <Route
                path='/jobs/:id'
                element={<JobPage deleteJob={deleteJob} />}
                loader={jobLoader}
+            />
+            <Route
+               path='/protected'
+               element={
+                  <ProtectedRoutes>
+                     <HomePage />
+                  </ProtectedRoutes>
+               }
             />
             <Route
                path='/edit-job/:id'
@@ -90,7 +104,7 @@ function App() {
          </Route>
       )
    );
-   return <RouterProvider path='/about' router={router} />;
+   return <RouterProvider router={router} />;
 }
 
 export default App;
