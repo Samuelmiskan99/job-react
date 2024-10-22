@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleProvider } from '../../firebase/firebaseConfig';
+import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
+import 'react-toastify/dist/ReactToastify.css'; // Import styles
 
 export default function LoginPage() {
    const [email, setEmail] = useState('');
@@ -22,21 +24,24 @@ export default function LoginPage() {
    const handleSubmit = async (e) => {
       e.preventDefault();
       setError('');
-
       try {
          await signInWithEmailAndPassword(auth, email, password);
+         toast.success('Login successful!'); // Show success message
          navigate('/protected'); // Redirect to protected route or home page
       } catch (err) {
          setError('Invalid login credentials. Please try again.', err);
+         toast.error('Login failed. Please check your credentials.', err); // Show error message
       }
    };
 
    const handleGoogleSignIn = async () => {
       try {
          await signInWithPopup(auth, googleProvider);
+         toast.success('Login successful!'); // Show success message
          navigate('/protected'); // Redirect after successful login
       } catch (err) {
-         setError('Failed to sign in with Google.', err);
+         setError('Failed to sign in with Google.');
+         toast.error('Google sign-in failed. Please try again.', err); // Show error message
       }
    };
 
@@ -88,13 +93,14 @@ export default function LoginPage() {
 
             <div className='mt-6 text-center'>
                <p>
-                  Don't have an account?{' '}
+                  {`Don't have an account?`}
                   <Link to='/signup' className='text-indigo-600 hover:underline'>
                      Sign Up
                   </Link>
                </p>
             </div>
          </div>
+         <ToastContainer /> {/* Include the ToastContainer to display notifications */}
       </section>
    );
 }

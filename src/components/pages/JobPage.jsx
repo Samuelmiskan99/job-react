@@ -2,6 +2,7 @@ import axios from 'axios';
 import { FaEdit, FaEnvelope, FaMapMarker, FaPhone, FaTrash } from 'react-icons/fa';
 import { useParams, useLoaderData, Link, useNavigate } from 'react-router-dom';
 import { toast, Bounce } from 'react-toastify';
+import PropTypes from 'prop-types';
 
 const toastStyle = {
    position: 'top-right',
@@ -109,6 +110,14 @@ const jobLoader = async ({ params }) => {
       console.error('Error loading the job data:', error);
       throw error; // You can handle the error with a fallback UI or navigation
    }
+};
+
+// fix the children missing props validation
+JobPage.propTypes = {
+   deleteJob: PropTypes.func.isRequired,
+   job: PropTypes.shape({
+      type: PropTypes.string.isRequired,
+   }),
 };
 
 export { JobPage as default, jobLoader };
