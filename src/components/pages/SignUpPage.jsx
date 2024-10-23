@@ -44,7 +44,7 @@ const SignUpPage = () => {
    return (
       <div className='flex min-h-screen items-center justify-center bg-gray-100'>
          <div className='bg-white p-8 rounded shadow-lg w-full max-w-md'>
-            <h2 className='text-3xl font-bold text-center mb-6'>Sign Up</h2>
+            <h2 className='text-3xl font-bold text-center mb-10'>Create Your Account</h2>
             {error && <p className='text-red-500 text-center'>{error}</p>}
             <form onSubmit={handleSubmit} className='space-y-6'>
                <div>
@@ -108,7 +108,7 @@ const SignUpPage = () => {
                </div>
             </form>
             <p className='text-gray-600 text-center mt-6'>
-               Already have an account?{' '}
+               Already have an account ?{' '}
                <Link to='/login' className='text-indigo-500 hover:underline'>
                   Login
                </Link>

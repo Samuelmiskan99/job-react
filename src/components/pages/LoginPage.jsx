@@ -4,6 +4,7 @@ import { signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/a
 import { auth, googleProvider } from '../../firebase/firebaseConfig';
 import { ToastContainer, toast } from 'react-toastify'; // Import ToastContainer and toast
 import 'react-toastify/dist/ReactToastify.css'; // Import styles
+import { FaGoogle } from 'react-icons/fa';
 
 export default function LoginPage() {
    const [email, setEmail] = useState('');
@@ -48,9 +49,7 @@ export default function LoginPage() {
    return (
       <section className='min-h-screen flex flex-col items-center justify-center bg-gray-50'>
          <div className='max-w-md w-full bg-white p-8 rounded-xl shadow-lg'>
-            <h1 className='text-3xl font-bold text-center mb-6'>
-               Login with <span className='text-yellow-500'>🔥</span>
-            </h1>
+            <h1 className='text-3xl font-bold text-center mb-6'>Login </h1>
             {error && <p className='text-red-500 text-center mb-4'>{error}</p>}
             <form onSubmit={handleSubmit} className='space-y-6'>
                <div>
@@ -86,14 +85,15 @@ export default function LoginPage() {
             <div className='mt-6 text-center'>
                <button
                   onClick={handleGoogleSignIn}
-                  className='w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg font-bold transition-all duration-200'>
-                  Sign in with Google
+                  className='w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg font-bold flex items-center justify-center space-x-2 shadow-md hover:shadow-lg transition-all duration-200 ease-in-out transform hover:scale-105'>
+                  <FaGoogle className='text-lg' />
+                  <span>Sign in with Google</span>
                </button>
             </div>
 
             <div className='mt-6 text-center'>
                <p>
-                  {`Don't have an account?`}
+                  {`Don't have an account ? `}
                   <Link to='/signup' className='text-indigo-600 hover:underline'>
                      Sign Up
                   </Link>

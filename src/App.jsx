@@ -14,7 +14,7 @@ import EditJobPage from './components/pages/EditJobPage';
 import LoginPage from './components/pages/LoginPage';
 import SignUpPage from './components/pages/SignUpPage';
 import axios from 'axios';
-import ProtectedRoutes from './protectroutes/ProtectedRoutes.jsx';
+import ProtectedRoutes from './protectroutes/ProtectedRoutes';
 
 function App() {
    const addJob = async (newJob) => {
@@ -24,36 +24,31 @@ function App() {
                'Content-Type': 'application/json',
             },
          });
-         // If the response status code is not in the 2xx range, throw an error
          if (res.status !== 200 && res.status !== 201) {
             throw new Error('Failed to submit the job');
          }
-         // Return the created/updated job data
          return res.data;
       } catch (error) {
          console.error('Error submitting the job:', error);
-         throw error; // rethrow the error so it can be handled by the caller
+         throw error;
       }
    };
 
    const deleteJob = async (id) => {
       try {
          const res = await axios.delete(`/api/jobs/${id}`);
-         // If the response status code is not in the 2xx range, throw an error
          if (res.status !== 200 && res.status !== 201) {
             throw new Error('Failed to delete the job');
          }
-         // Return the created/updated job data
          return res.data;
       } catch (error) {
          console.error('Error deleting the job:', error);
-         throw error; // rethrow the error so it can be handled by the caller
+         throw error;
       }
    };
 
    const updateJob = async (job) => {
       try {
-         // Ensure job.id exists and is passed in the URL
          if (!job.id) {
             throw new Error('Job ID is missing');
          }
@@ -62,22 +57,28 @@ function App() {
                'Content-Type': 'application/json',
             },
          });
-         // Check if the response status code is within the 2xx range
          if (res.status !== 200 && res.status !== 201) {
             throw new Error('Failed to update the job');
          }
-         // Return the updated job data
          return res.data;
       } catch (error) {
          console.error('Error updating the job:', error);
-         throw error; // Rethrow the error so it can be handled by the caller
+         throw error;
       }
    };
 
    const router = createBrowserRouter(
       createRoutesFromElements(
          <Route path='/' element={<MainLayout />}>
-            <Route index element={<HomePage />} />
+            {/* Protect HomePage */}
+            <Route
+               index
+               element={
+                  <ProtectedRoutes>
+                     <HomePage />
+                  </ProtectedRoutes>
+               }
+            />
             <Route path='/jobs' element={<JobsPage />} />
             <Route path='/add-job' element={<AddJobPage addJobSubmit={addJob} />} />
             <Route path='/login' element={<LoginPage />} />
@@ -88,14 +89,6 @@ function App() {
                loader={jobLoader}
             />
             <Route
-               path='/protected'
-               element={
-                  <ProtectedRoutes>
-                     <HomePage />
-                  </ProtectedRoutes>
-               }
-            />
-            <Route
                path='/edit-job/:id'
                element={<EditJobPage updateJobSubmit={updateJob} />}
                loader={jobLoader}
@@ -104,6 +97,7 @@ function App() {
          </Route>
       )
    );
+
    return <RouterProvider router={router} />;
 }
 
