@@ -16,6 +16,7 @@ import SignUpPage from './components/pages/SignUpPage';
 import axios from 'axios';
 import ProtectedRoutes from './protectroutes/ProtectedRoutes';
 
+
 function App() {
    const addJob = async (newJob) => {
       try {
@@ -75,7 +76,7 @@ function App() {
                index
                element={
                   <ProtectedRoutes>
-                     <HomePage />
+                     <HomePage path='/' />
                   </ProtectedRoutes>
                }
             />

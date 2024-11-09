@@ -26,7 +26,7 @@ export default function Navbar() {
             <div className='flex items-center space-x-3'>
                <img src={work} alt='React Jobs' className='w-8 h-8' />
                <NavLink to='/' className='text-3xl font-extrabold tracking-wide'>
-                  Ambatujobs
+                  Career Hive
                </NavLink>
             </div>
             <nav className='flex space-x-6'>

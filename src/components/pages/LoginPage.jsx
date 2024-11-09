@@ -28,7 +28,7 @@ export default function LoginPage() {
       try {
          await signInWithEmailAndPassword(auth, email, password);
          toast.success('Login successful!'); // Show success message
-         navigate('/protected'); // Redirect to protected route or home page
+         navigate('/'); // Redirect to protected route or home page
       } catch (err) {
          setError('Invalid login credentials. Please try again.', err);
          toast.error('Login failed. Please check your credentials.', err); // Show error message
@@ -39,7 +39,7 @@ export default function LoginPage() {
       try {
          await signInWithPopup(auth, googleProvider);
          toast.success('Login successful!'); // Show success message
-         navigate('/protected'); // Redirect after successful login
+         navigate('/'); // Redirect after successful login
       } catch (err) {
          setError('Failed to sign in with Google.');
          toast.error('Google sign-in failed. Please try again.', err); // Show error message
